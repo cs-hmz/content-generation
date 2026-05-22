@@ -13,6 +13,7 @@ export default function Welcome({ auth }) {
 
                 <div className="relative flex min-h-screen flex-col items-center justify-center">
                     <div className="relative w-full max-w-2xl px-6 lg:max-w-7xl">
+                        {/* Header */}
                         <header className="flex items-center justify-between py-6">
                             <div className="flex items-center gap-3">
                                 <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-purple-400 to-pink-600 flex items-center justify-center">
@@ -47,7 +48,9 @@ export default function Welcome({ auth }) {
                             </nav>
                         </header>
 
+                        {/* Main Content */}
                         <main className="mt-20">
+                            {/* Hero Section */}
                             <div className="text-center mb-20">
                                 <h2 className="text-5xl md:text-6xl font-bold mb-6">
                                     Create Amazing Content
@@ -68,6 +71,7 @@ export default function Welcome({ auth }) {
                                 )}
                             </div>
 
+                            {/* Features Grid */}
                             <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
                                 {/* Feature 1 */}
                                 <div className="rounded-xl bg-white/10 backdrop-blur border border-white/20 p-8 hover:bg-white/15 transition">
@@ -141,6 +145,7 @@ export default function Welcome({ auth }) {
                             </div>
                         </main>
 
+                        {/* Footer */}
                         <footer className="py-12 text-center text-gray-400 text-sm border-t border-white/10 mt-20">
                             <p>© 2024 ContentGen. All rights reserved. Powered by AI.</p>
                         </footer>
