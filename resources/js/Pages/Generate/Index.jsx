@@ -74,16 +74,16 @@ export default function Generate({ templates: initialTemplates }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="bg-slate-800/50 backdrop-blur border border-white/10 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6">
-                            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+                            <h2 className="text-2xl font-bold mb-6 text-white">
                                 Générer du contenu
                             </h2>
 
                             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                                 {/* Template Selector */}
                                 <div className="lg:col-span-1">
-                                    <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
+                                    <h3 className="text-lg font-semibold mb-3 text-gray-100">
                                         Templates
                                     </h3>
                                     <TemplateCategoryFilter
@@ -97,14 +97,14 @@ export default function Generate({ templates: initialTemplates }) {
                                                 onClick={() => handleTemplateSelect(template)}
                                                 className={`w-full text-left p-3 rounded-lg border transition-colors ${
                                                     selectedTemplate?.id === template.id
-                                                        ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20'
-                                                        : 'border-gray-200 dark:border-gray-700 hover:border-indigo-300'
+                                                        ? 'border-indigo-400 bg-indigo-900/30'
+                                                        : 'border-gray-600 hover:border-indigo-500 bg-slate-700/50'
                                                 }`}
                                             >
-                                                <div className="font-medium text-sm text-gray-900 dark:text-gray-100">
+                                                <div className="font-medium text-sm text-gray-100">
                                                     {template.name}
                                                 </div>
-                                                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                <div className="text-xs text-gray-400 mt-1">
                                                     {template.description?.substring(0, 80)}...
                                                 </div>
                                                 <ModelBadge model={template.category} />
@@ -116,8 +116,8 @@ export default function Generate({ templates: initialTemplates }) {
                                 {/* Editor */}
                                 <div className="lg:col-span-2 space-y-4">
                                     {selectedTemplate && (
-                                        <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                                            <div className="font-medium text-sm text-gray-700 dark:text-gray-300">
+                                        <div className="p-3 bg-slate-700/50 border border-white/10 rounded-lg">
+                                            <div className="font-medium text-sm text-gray-200">
                                                 Template : {selectedTemplate.name}
                                             </div>
                                             {selectedTemplate.variables?.length > 0 && (
@@ -125,7 +125,7 @@ export default function Generate({ templates: initialTemplates }) {
                                                     {selectedTemplate.variables.map((v) => (
                                                         <span
                                                             key={v.name}
-                                                            className="inline-flex items-center px-2 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 text-xs rounded"
+                                                            className="inline-flex items-center px-2 py-1 bg-indigo-900/50 text-indigo-200 text-xs rounded"
                                                         >
                                                             {v.label}
                                                         </span>
@@ -136,14 +136,14 @@ export default function Generate({ templates: initialTemplates }) {
                                     )}
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        <label className="block text-sm font-medium text-gray-200 mb-1">
                                             Prompt / Variables
                                         </label>
                                         <textarea
                                             value={prompt}
                                             onChange={(e) => setPrompt(e.target.value)}
                                             rows={6}
-                                            className="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            className="w-full rounded-md bg-slate-700 border border-gray-600 text-gray-100 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                             placeholder="Entrez votre prompt ou les valeurs des variables ici..."
                                             disabled={status === 'streaming' || status === 'pending'}
                                         />
@@ -151,13 +151,13 @@ export default function Generate({ templates: initialTemplates }) {
 
                                     <div className="flex items-center gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            <label className="block text-sm font-medium text-gray-200 mb-1">
                                                 Modèle
                                             </label>
                                             <select
                                                 value={model}
                                                 onChange={(e) => setModel(e.target.value)}
-                                                className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                className="rounded-md bg-slate-700 border border-gray-600 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                                 disabled={status === 'streaming' || status === 'pending'}
                                             >
                                                 <option value="openai">GPT-4o</option>
@@ -169,7 +169,7 @@ export default function Generate({ templates: initialTemplates }) {
                                             <button
                                                 onClick={handleGenerate}
                                                 disabled={!prompt || status === 'streaming' || status === 'pending'}
-                                                className="px-6 py-2 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                                className="px-6 py-2 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                             >
                                                 {status === 'pending'
                                                     ? 'En attente...'
@@ -181,7 +181,7 @@ export default function Generate({ templates: initialTemplates }) {
                                             {status !== 'idle' && (
                                                 <button
                                                     onClick={reset}
-                                                    className="ml-2 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors"
+                                                    className="ml-2 px-4 py-2 bg-slate-700 text-gray-200 font-medium rounded-md hover:bg-slate-600 transition-colors"
                                                 >
                                                     Réinitialiser
                                                 </button>
@@ -191,7 +191,7 @@ export default function Generate({ templates: initialTemplates }) {
 
                                     {/* Output */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        <label className="block text-sm font-medium text-gray-200 mb-1">
                                             Résultat
                                         </label>
                                         <StreamingText
@@ -205,19 +205,19 @@ export default function Generate({ templates: initialTemplates }) {
                                         <div className="flex gap-2">
                                             <button
                                                 onClick={() => handleExport('markdown')}
-                                                className="px-4 py-2 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
+                                                className="px-4 py-2 bg-green-600 text-white text-sm rounded-md hover:bg-green-500 transition-colors"
                                             >
                                                 Télécharger MD
                                             </button>
                                             <button
                                                 onClick={() => handleExport('pdf')}
-                                                className="px-4 py-2 bg-red-600 text-white text-sm rounded-md hover:bg-red-700 transition-colors"
+                                                className="px-4 py-2 bg-red-600 text-white text-sm rounded-md hover:bg-red-500 transition-colors"
                                             >
                                                 Télécharger PDF
                                             </button>
                                             <button
                                                 onClick={() => handleExport('docx')}
-                                                className="px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
+                                                className="px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-500 transition-colors"
                                             >
                                                 Télécharger DOCX
                                             </button>
@@ -225,7 +225,7 @@ export default function Generate({ templates: initialTemplates }) {
                                     )}
 
                                     {status === 'failed' && (
-                                        <div className="p-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-lg text-sm">
+                                        <div className="p-3 bg-red-900/30 border border-red-700 text-red-200 rounded-lg text-sm">
                                             La génération a échoué. Veuillez réessayer.
                                         </div>
                                     )}

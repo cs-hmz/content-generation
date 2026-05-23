@@ -8,23 +8,23 @@ export default function QuotaBar({ used = 0, limit = 10 }) {
     return (
         <div className="w-full">
             <div className="flex justify-between items-center mb-1">
-                <span className="text-sm text-gray-600 dark:text-gray-400">
+                <span className="text-sm text-gray-300">
                     Crédits utilisés
                 </span>
                 <span className={`text-sm font-medium ${
-                    isDanger ? 'text-red-600' : isWarning ? 'text-yellow-600' : 'text-gray-700 dark:text-gray-300'
+                    isDanger ? 'text-red-400' : isWarning ? 'text-yellow-400' : 'text-gray-300'
                 }`}>
                     {used} / {limit}
                 </span>
             </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+            <div className="w-full bg-slate-700 rounded-full h-2.5">
                 <div
                     className={`h-2.5 rounded-full transition-all duration-300 ${
                         isDanger
                             ? 'bg-red-500'
                             : isWarning
                             ? 'bg-yellow-500'
-                            : 'bg-blue-500'
+                            : 'bg-indigo-500'
                     }`}
                     style={{ width: `${percentage}%` }}
                 />

@@ -55,7 +55,7 @@ export default function Billing({ plans, currentPlan, used, limit }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     {/* Quota bar */}
-                    <div className="mb-6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                    <div className="mb-6 bg-slate-800/50 backdrop-blur border border-white/10 overflow-hidden shadow-sm sm:rounded-lg p-6">
                         <QuotaBar used={used} limit={limit} />
                     </div>
 
@@ -68,39 +68,39 @@ export default function Billing({ plans, currentPlan, used, limit }) {
                             return (
                                 <div
                                     key={plan.id}
-                                    className={`bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 border-2 ${
+                                    className={`bg-slate-800/50 backdrop-blur border-2 overflow-hidden shadow-sm sm:rounded-lg p-6 ${
                                         isCurrentPlan
                                             ? 'border-indigo-500'
-                                            : 'border-transparent'
+                                            : 'border-white/10'
                                     }`}
                                 >
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                                    <h3 className="text-xl font-bold text-white">
                                         {plan.name}
                                     </h3>
                                     <div className="mt-4">
-                                        <span className="text-4xl font-extrabold text-gray-900 dark:text-gray-100">
+                                        <span className="text-4xl font-extrabold text-white">
                                             {plan.price_cents > 0
                                                 ? `${(plan.price_cents / 100).toFixed(0)}€`
                                                 : 'Gratuit'}
                                         </span>
                                         {plan.price_cents > 0 && (
-                                            <span className="text-gray-500 dark:text-gray-400">/mois</span>
+                                            <span className="text-gray-400">/mois</span>
                                         )}
                                     </div>
                                     <ul className="mt-6 space-y-3">
-                                        <li className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                        <li className="flex items-center text-sm text-gray-300">
                                             <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                             </svg>
                                             {plan.monthly_credits} crédits / mois
                                         </li>
-                                        <li className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                        <li className="flex items-center text-sm text-gray-300">
                                             <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                             </svg>
                                             Tous les templates
                                         </li>
-                                        <li className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                        <li className="flex items-center text-sm text-gray-300">
                                             <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                             </svg>
@@ -111,18 +111,18 @@ export default function Billing({ plans, currentPlan, used, limit }) {
                                         {isCurrentPlan ? (
                                             <button
                                                 onClick={handlePortal}
-                                                className="w-full px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors"
+                                                className="w-full px-4 py-2 bg-slate-700 text-gray-200 rounded-md hover:bg-slate-600 transition-colors"
                                             >
                                                 Gérer l'abonnement
                                             </button>
                                         ) : isFree ? (
-                                            <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+                                            <div className="text-center text-sm text-gray-400">
                                                 Plan actuel
                                             </div>
                                         ) : (
                                             <button
                                                 onClick={() => handleSubscribe(plan.id)}
-                                                className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+                                                className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition-colors"
                                             >
                                                 S'abonner
                                             </button>
@@ -134,10 +134,10 @@ export default function Billing({ plans, currentPlan, used, limit }) {
                     </div>
 
                     {currentPlan && (
-                        <div className="mt-6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 text-center">
+                        <div className="mt-6 bg-slate-800/50 backdrop-blur border border-white/10 overflow-hidden shadow-sm sm:rounded-lg p-6 text-center">
                             <button
                                 onClick={handlePortal}
-                                className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 text-sm"
+                                className="text-indigo-400 hover:text-indigo-300 text-sm"
                             >
                                 Accéder au portail de facturation Stripe →
                             </button>

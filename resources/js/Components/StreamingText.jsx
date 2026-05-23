@@ -24,15 +24,15 @@ export default function StreamingText({ content, isStreaming = false }) {
     return (
         <div
             ref={containerRef}
-            className="w-full h-64 p-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg overflow-y-auto font-mono text-sm leading-relaxed whitespace-pre-wrap"
+            className="w-full h-64 p-4 bg-slate-700 border border-gray-600 rounded-lg overflow-y-auto font-mono text-sm leading-relaxed whitespace-pre-wrap text-gray-100"
         >
             {content || (
-                <span className="text-gray-400 dark:text-gray-500">
+                <span className="text-gray-500">
                     {isStreaming ? 'En attente du contenu...' : 'Le résultat apparaîtra ici...'}
                 </span>
             )}
             {showCursor && isStreaming && (
-                <span className="inline-block w-2 h-4 bg-blue-500 dark:bg-blue-400 ml-0.5 animate-pulse" />
+                <span className="inline-block w-2 h-4 bg-indigo-400 ml-0.5 animate-pulse" />
             )}
         </div>
     );

@@ -64,9 +64,9 @@ export default function History() {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="bg-slate-800/50 backdrop-blur border border-white/10 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6">
-                            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+                            <h2 className="text-2xl font-bold mb-6 text-white">
                                 Historique des générations
                             </h2>
 
@@ -75,7 +75,7 @@ export default function History() {
                                 <select
                                     value={filters.status}
                                     onChange={(e) => setFilters((f) => ({ ...f, status: e.target.value }))}
-                                    className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 text-sm"
+                                    className="rounded-md bg-slate-700 border border-gray-600 text-gray-100 text-sm"
                                 >
                                     <option value="">Tous les statuts</option>
                                     <option value="pending">En attente</option>
@@ -86,7 +86,7 @@ export default function History() {
                                 <select
                                     value={filters.model}
                                     onChange={(e) => setFilters((f) => ({ ...f, model: e.target.value }))}
-                                    className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 text-sm"
+                                    className="rounded-md bg-slate-700 border border-gray-600 text-gray-100 text-sm"
                                 >
                                     <option value="">Tous les modèles</option>
                                     <option value="openai">GPT-4o</option>
@@ -96,27 +96,27 @@ export default function History() {
 
                             {/* Table */}
                             {loading ? (
-                                <div className="text-center py-8 text-gray-500">Chargement...</div>
+                                <div className="text-center py-8 text-gray-400">Chargement...</div>
                             ) : generations.length === 0 ? (
-                                <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                                <div className="text-center py-8 text-gray-400">
                                     Aucune génération trouvée.
                                 </div>
                             ) : (
                                 <div className="overflow-x-auto">
-                                    <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                        <thead className="bg-gray-50 dark:bg-gray-700">
+                                    <table className="min-w-full divide-y divide-gray-700">
+                                        <thead className="bg-slate-700/50">
                                             <tr>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Date</th>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Template</th>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Modèle</th>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Tokens</th>
-                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Statut</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Template</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Modèle</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Tokens</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Statut</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                        <tbody className="divide-y divide-gray-700">
                                             {generations.map((gen) => (
-                                                <tr key={gen.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+                                                <tr key={gen.id} className="hover:bg-slate-700/30">
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                                         {new Date(gen.created_at).toLocaleDateString('fr-FR', {
                                                             day: 'numeric',
                                                             month: 'short',
@@ -125,13 +125,13 @@ export default function History() {
                                                             minute: '2-digit',
                                                         })}
                                                     </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                                         {gen.template?.name || 'Prompt libre'}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <ModelBadge model={gen.model} />
                                                     </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                                                         {gen.tokens_used}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
@@ -154,7 +154,7 @@ export default function History() {
                                             className={`px-3 py-1 rounded text-sm ${
                                                 page === meta.current_page
                                                     ? 'bg-indigo-600 text-white'
-                                                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300'
+                                                    : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
                                             }`}
                                         >
                                             {page}
