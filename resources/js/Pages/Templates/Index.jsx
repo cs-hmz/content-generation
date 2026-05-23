@@ -222,21 +222,21 @@ export default function Templates({ templates: initialTemplates }) {
 
                                         <div className="space-y-4">
                                             <div>
-                                                <label className="block text-sm font-medium text-gray-200">Nom</label>
+                                                <label className="block text-sm font-medium text-gray-200 mb-2">Nom</label>
                                                 <input
                                                     type="text"
                                                     value={form.name}
                                                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                                                    className="mt-1 block w-full rounded-md bg-slate-700 border border-gray-600 text-gray-100 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                    className="mt-1 block w-full rounded-md bg-slate-600 border border-slate-500 text-white placeholder-gray-400 shadow-sm focus:bg-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30 transition-colors px-3 py-2"
                                                 />
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm font-medium text-gray-200">Catégorie</label>
+                                                <label className="block text-sm font-medium text-gray-200 mb-2">Catégorie</label>
                                                 <select
                                                     value={form.category}
                                                     onChange={(e) => setForm({ ...form, category: e.target.value })}
-                                                    className="mt-1 block w-full rounded-md bg-slate-700 border border-gray-600 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                    className="mt-1 block w-full rounded-md bg-slate-600 border border-slate-500 text-white shadow-sm focus:bg-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30 transition-colors px-3 py-2"
                                                 >
                                                     <option value="article">Article</option>
                                                     <option value="email">Email</option>
@@ -246,44 +246,45 @@ export default function Templates({ templates: initialTemplates }) {
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm font-medium text-gray-200">Description</label>
+                                                <label className="block text-sm font-medium text-gray-200 mb-2">Description</label>
                                                 <textarea
                                                     value={form.description}
                                                     onChange={(e) => setForm({ ...form, description: e.target.value })}
                                                     rows={2}
-                                                    className="mt-1 block w-full rounded-md bg-slate-700 border border-gray-600 text-gray-100 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                    className="mt-1 block w-full rounded-md bg-slate-600 border border-slate-500 text-white placeholder-gray-400 shadow-sm focus:bg-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30 transition-colors px-3 py-2 resize-none"
                                                 />
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm font-medium text-gray-200">System Prompt</label>
+                                                <label className="block text-sm font-medium text-gray-200 mb-2">System Prompt</label>
                                                 <textarea
                                                     value={form.system_prompt}
                                                     onChange={(e) => setForm({ ...form, system_prompt: e.target.value })}
                                                     rows={4}
-                                                    className="mt-1 block w-full rounded-md bg-slate-700 border border-gray-600 text-gray-100 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                    className="mt-1 block w-full rounded-md bg-slate-600 border border-slate-500 text-white placeholder-gray-400 shadow-sm focus:bg-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30 transition-colors px-3 py-2 resize-none"
                                                 />
                                             </div>
 
                                             <div>
-                                                <label className="block text-sm font-medium text-gray-200">Variables (JSON)</label>
+                                                <label className="block text-sm font-medium text-gray-200 mb-2">Variables (JSON)</label>
                                                 <textarea
                                                     value={form.variables}
                                                     onChange={(e) => setForm({ ...form, variables: e.target.value })}
                                                     rows={3}
-                                                    className="mt-1 block w-full rounded-md bg-slate-700 border border-gray-600 text-gray-100 placeholder-gray-500 font-mono text-xs shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                    className="mt-1 block w-full rounded-md bg-slate-600 border border-slate-500 text-white placeholder-gray-400 shadow-sm focus:bg-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30 transition-colors px-3 py-2 resize-none font-mono text-xs"
                                                     placeholder='[{"name": "sujet", "label": "Sujet", "type": "text"}]'
                                                 />
                                             </div>
 
-                                            <div className="flex items-center">
+                                            <div className="flex items-center gap-2">
                                                 <input
                                                     type="checkbox"
+                                                    id="is_public"
                                                     checked={form.is_public}
                                                     onChange={(e) => setForm({ ...form, is_public: e.target.checked })}
-                                                    className="rounded border-gray-600 bg-slate-700 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                    className="rounded border-slate-500 bg-slate-600 text-indigo-500 shadow-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30"
                                                 />
-                                                <label className="ml-2 text-sm text-gray-200">Rendre public</label>
+                                                <label htmlFor="is_public" className="text-sm text-gray-200">Rendre public</label>
                                             </div>
                                         </div>
 
