@@ -136,14 +136,14 @@ export default function Generate({ templates: initialTemplates }) {
                                     )}
 
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-200 mb-1">
+                                        <label className="block text-sm font-medium text-gray-200 mb-2">
                                             Prompt / Variables
                                         </label>
                                         <textarea
                                             value={prompt}
                                             onChange={(e) => setPrompt(e.target.value)}
                                             rows={6}
-                                            className="w-full rounded-md bg-slate-700 border border-gray-600 text-gray-100 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            className="w-full rounded-md bg-slate-600 border border-slate-500 text-white placeholder-gray-400 shadow-sm focus:bg-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30 transition-colors px-3 py-2 resize-none"
                                             placeholder="Entrez votre prompt ou les valeurs des variables ici..."
                                             disabled={status === 'streaming' || status === 'pending'}
                                         />
@@ -151,13 +151,13 @@ export default function Generate({ templates: initialTemplates }) {
 
                                     <div className="flex items-center gap-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-200 mb-1">
+                                            <label className="block text-sm font-medium text-gray-200 mb-2">
                                                 Modèle
                                             </label>
                                             <select
                                                 value={model}
                                                 onChange={(e) => setModel(e.target.value)}
-                                                className="rounded-md bg-slate-700 border border-gray-600 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                className="rounded-md bg-slate-600 border border-slate-500 text-white shadow-sm focus:bg-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30 transition-colors px-3 py-2"
                                                 disabled={status === 'streaming' || status === 'pending'}
                                             >
                                                 <option value="openai">GPT-4o</option>
