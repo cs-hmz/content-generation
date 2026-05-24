@@ -25,16 +25,20 @@ export default function Login({ status, canResetPassword }) {
         <GuestLayout>
             <Head title="Log in" />
 
+            <div className="text-center mb-6">
+                <h2 className="text-2xl font-bold text-white">Connexion</h2>
+                <p className="text-gray-400 text-sm mt-1">Connectez-vous à votre compte</p>
+            </div>
+
             {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
+                <div className="mb-4 p-3 rounded-lg bg-green-500/20 border border-green-500/30 text-sm font-medium text-green-300">
                     {status}
                 </div>
             )}
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className="space-y-5">
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
-
                     <TextInput
                         id="email"
                         type="email"
@@ -45,13 +49,11 @@ export default function Login({ status, canResetPassword }) {
                         isFocused={true}
                         onChange={(e) => setData('email', e.target.value)}
                     />
-
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
+                <div>
+                    <InputLabel htmlFor="password" value="Mot de passe" />
                     <TextInput
                         id="password"
                         type="password"
@@ -61,40 +63,40 @@ export default function Login({ status, canResetPassword }) {
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
                     />
-
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
-                <div className="mt-4 block">
-                    <label className="flex items-center">
+                <div className="flex items-center justify-between">
+                    <label className="flex items-center gap-2 cursor-pointer">
                         <Checkbox
                             name="remember"
                             checked={data.remember}
-                            onChange={(e) =>
-                                setData('remember', e.target.checked)
-                            }
+                            onChange={(e) => setData('remember', e.target.checked)}
                         />
-                        <span className="ms-2 text-sm text-gray-600">
-                            Remember me
-                        </span>
+                        <span className="text-sm text-gray-300">Se souvenir de moi</span>
                     </label>
-                </div>
 
-                <div className="mt-4 flex items-center justify-end">
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className="text-sm text-indigo-400 hover:text-indigo-300 underline transition-colors"
                         >
-                            Forgot your password?
+                            Mot de passe oublié ?
                         </Link>
                     )}
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
                 </div>
+
+                <PrimaryButton className="w-full justify-center py-3" disabled={processing}>
+                    {processing ? 'Connexion...' : 'Se connecter'}
+                </PrimaryButton>
             </form>
+
+            <p className="text-center text-sm text-gray-400 mt-6">
+                Pas encore de compte ?{' '}
+                <Link href={route('register')} className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors">
+                    Créer un compte
+                </Link>
+            </p>
         </GuestLayout>
     );
 }

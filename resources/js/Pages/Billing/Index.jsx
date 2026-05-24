@@ -48,81 +48,131 @@ export default function Billing({ plans, currentPlan, used, limit }) {
         }
     };
 
+    const getPlanBadge = (plan) => {
+        if (currentPlan?.id === plan.id) return 'Actuel';
+        if (plan.price_cents === 0) return 'Gratuit';
+        return null;
+    };
+
+    const getPlanColor = (index) => {
+        const colors = [
+            { from: 'from-slate-600/20', to: 'to-slate-700/20', border: 'border-slate-500/30', gradient: 'from-slate-400 to-slate-500' },
+            { from: 'from-indigo-600/20', to: 'to-purple-600/20', border: 'border-indigo-500/30', gradient: 'from-indigo-500 to-purple-600' },
+            { from: 'from-purple-600/20', to: 'to-pink-600/20', border: 'border-purple-500/30', gradient: 'from-purple-500 to-pink-600' },
+        ];
+        return colors[index] || colors[0];
+    };
+
     return (
         <AuthenticatedLayout>
             <Head title="Abonnement" />
 
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    {/* Quota bar */}
-                    <div className="mb-6 bg-slate-800/50 backdrop-blur border border-white/10 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                    {/* Header */}
+                    <div className="glass-card rounded-xl p-6">
+                        <div className="flex items-center gap-4 mb-4">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600/20 to-pink-600/20 flex items-center justify-center">
+                                <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 className="text-2xl font-bold text-white">Abonnement</h2>
+                                <p className="text-gray-400 text-sm">Gérez votre abonnement et suivez votre consommation</p>
+                            </div>
+                        </div>
                         <QuotaBar used={used} limit={limit} />
                     </div>
 
                     {/* Plans */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {plans.map((plan) => {
+                        {plans.map((plan, index) => {
                             const isCurrentPlan = currentPlan?.id === plan.id;
                             const isFree = plan.price_cents === 0;
+                            const colors = getPlanColor(index);
 
                             return (
                                 <div
                                     key={plan.id}
-                                    className={`bg-slate-800/50 backdrop-blur border-2 overflow-hidden shadow-sm sm:rounded-lg p-6 ${
+                                    className={`relative glass-card rounded-xl p-8 border-2 transition-all duration-300 ${
                                         isCurrentPlan
-                                            ? 'border-indigo-500'
-                                            : 'border-white/10'
+                                            ? 'border-indigo-500 shadow-lg shadow-indigo-500/10'
+                                            : 'border-white/5 hover:border-indigo-500/50'
                                     }`}
                                 >
-                                    <h3 className="text-xl font-bold text-white">
+                                    {/* Plan badge */}
+                                    <div className={`absolute -top-3 left-6 px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${colors.gradient} text-white shadow-lg`}>
                                         {plan.name}
-                                    </h3>
-                                    <div className="mt-4">
-                                        <span className="text-4xl font-extrabold text-white">
+                                    </div>
+
+                                    {isCurrentPlan && (
+                                        <div className="absolute -top-3 right-6 px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">
+                                            Plan actuel
+                                        </div>
+                                    )}
+
+                                    {/* Price */}
+                                    <div className="mt-4 text-center">
+                                        <div className="text-5xl font-extrabold text-white">
                                             {plan.price_cents > 0
                                                 ? `${(plan.price_cents / 100).toFixed(0)}€`
-                                                : 'Gratuit'}
-                                        </span>
+                                                : (
+                                                    <span className="text-3xl">Gratuit</span>
+                                                )}
+                                        </div>
                                         {plan.price_cents > 0 && (
-                                            <span className="text-gray-400">/mois</span>
+                                            <div className="text-gray-400 mt-1">/ mois</div>
                                         )}
                                     </div>
-                                    <ul className="mt-6 space-y-3">
-                                        <li className="flex items-center text-sm text-gray-300">
-                                            <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                                    {/* Features */}
+                                    <ul className="mt-8 space-y-4">
+                                        <li className="flex items-start gap-3 text-sm text-gray-300">
+                                            <svg className="w-5 h-5 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                             </svg>
-                                            {plan.monthly_credits} crédits / mois
+                                            <span><strong className="text-white">{plan.monthly_credits}</strong> crédits / mois</span>
                                         </li>
-                                        <li className="flex items-center text-sm text-gray-300">
-                                            <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <li className="flex items-start gap-3 text-sm text-gray-300">
+                                            <svg className="w-5 h-5 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                             </svg>
-                                            Tous les templates
+                                            <span>Tous les templates</span>
                                         </li>
-                                        <li className="flex items-center text-sm text-gray-300">
-                                            <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <li className="flex items-start gap-3 text-sm text-gray-300">
+                                            <svg className="w-5 h-5 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                             </svg>
-                                            Export PDF / Markdown / DOCX
+                                            <span>Export PDF / Markdown / DOCX</span>
                                         </li>
+                                        {!isFree && (
+                                            <li className="flex items-start gap-3 text-sm text-gray-300">
+                                                <svg className="w-5 h-5 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span>Priorité de génération</span>
+                                            </li>
+                                        )}
                                     </ul>
+
+                                    {/* Action button */}
                                     <div className="mt-8">
                                         {isCurrentPlan ? (
                                             <button
                                                 onClick={handlePortal}
-                                                className="w-full px-4 py-2 bg-slate-700 text-gray-200 rounded-md hover:bg-slate-600 transition-colors"
+                                                className="w-full px-4 py-3 bg-slate-700 text-gray-200 rounded-xl hover:bg-slate-600 transition-all duration-300 border border-slate-600 font-medium"
                                             >
                                                 Gérer l'abonnement
                                             </button>
                                         ) : isFree ? (
                                             <div className="text-center text-sm text-gray-400">
-                                                Plan actuel
+                                                Actuellement gratuit
                                             </div>
                                         ) : (
                                             <button
                                                 onClick={() => handleSubscribe(plan.id)}
-                                                className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition-colors"
+                                                className={`w-full px-4 py-3 rounded-xl font-medium transition-all duration-300 shadow-lg bg-gradient-to-r ${colors.gradient} text-white hover:shadow-xl hover:scale-[1.02]`}
                                             >
                                                 S'abonner
                                             </button>
@@ -133,13 +183,20 @@ export default function Billing({ plans, currentPlan, used, limit }) {
                         })}
                     </div>
 
+                    {/* Portal link */}
                     {currentPlan && (
-                        <div className="mt-6 bg-slate-800/50 backdrop-blur border border-white/10 overflow-hidden shadow-sm sm:rounded-lg p-6 text-center">
+                        <div className="glass-card rounded-xl p-6 text-center">
+                            <p className="text-gray-400 text-sm mb-3">
+                                Besoin de gérer vos factures ou modifier votre méthode de paiement ?
+                            </p>
                             <button
                                 onClick={handlePortal}
-                                className="text-indigo-400 hover:text-indigo-300 text-sm"
+                                className="text-indigo-400 hover:text-indigo-300 text-sm inline-flex items-center gap-1 transition-colors"
                             >
-                                Accéder au portail de facturation Stripe →
+                                Accéder au portail de facturation Stripe
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
                             </button>
                         </div>
                     )}
